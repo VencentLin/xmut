@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">xmut</string>
+    <string name="title_home">主页</string>
+    <string name="title_chart">图表</string>
+    <string name="title_video">视频</string>
+    <string name="title_mine">我</string>
+</resources>
