@@ -2,6 +2,9 @@ package cn.lwx000.xmut.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,19 +18,34 @@ public class SplashActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         splash();
+
     }
 
     private void splash() {
-        Timer timer = new Timer();
+        final Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this,
-                        MainActivity.class);
-                startActivity(intent);
-                finish();
+                activity();
             }
         };
-        timer.schedule(timerTask,3000);
+        timer.schedule(timerTask,5000);
+        Button button = findViewById(R.id.btn_skip);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SplashActivity.this, "跳过闪屏页",
+                        Toast.LENGTH_SHORT).show();
+                activity();
+                timer.cancel();
+            }
+        });
+    }
+
+    private void activity() {
+        Intent intent = new Intent(SplashActivity.this,
+                MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

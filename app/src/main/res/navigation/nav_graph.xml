@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="cn.lwx000.xmut.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="cn.lwx000.xmut.fragments.ChartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_chart" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="cn.lwx000.xmut.fragments.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="cn.lwx000.xmut.fragments.MineFragment"
+        android:label="fragment_mine"
+        tools:layout="@layout/fragment_mine" />
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_mineFragment"
+        app:destination="@id/mineFragment"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_videoFragment"
+        app:destination="@id/videoFragment"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_chartFragment"
+        app:destination="@id/chartFragment"
+        app:launchSingleTop="true" />
+</navigation>
