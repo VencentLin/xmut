@@ -43,6 +43,7 @@ public class BaseFragment extends Fragment {
         return view;
     }
 
+
     protected int setLayoutResourceID() {
         return 0;
     }
