@@ -1,6 +1,8 @@
 package cn.lwx000.xmut.beans;
 
-public class NewsBean {
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+public class NewsBean implements MultiItemEntity {
 
 
     /**
@@ -95,5 +97,10 @@ public class NewsBean {
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
+    }
+
+    @Override
+    public int getItemType() {
+        return getType();
     }
 }
