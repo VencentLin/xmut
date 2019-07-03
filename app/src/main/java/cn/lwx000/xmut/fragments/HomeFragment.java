@@ -81,29 +81,32 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
+
         getADData();
         getNewsData();
     }
 
     private void getNewsData() {
+
         OkHttpClient client = new OkHttpClient();
 
 
         Request request = new Request.Builder()
                 .url(ConstantUtils.REQUEST_NEW_URL)
                 .build();
-        Call call=client.newCall(request);
-        call.enqueue(new Callback() {
+        client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                Log.e(TAG, "onFailure: ",e );
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 ResponseBody body=response.body();
+
                 if (body!=null){
                     String json=body.string();
+                    System.out.println(json);
                     Log.i(TAG,json);
                     Message message=Message.obtain();
                     message.what=MyHandle.NEWS_OK;

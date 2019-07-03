@@ -50,6 +50,8 @@ public class BaseFragment extends Fragment {
         initView(view);
     }
 
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

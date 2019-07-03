@@ -2,7 +2,7 @@ package cn.lwx000.xmut.utils;
 
 public class ConstantUtils {
 //    public static  final String WEB_SITE="http://lwx000.cn:8088/topline";
-    public static  final String WEB_SITE="http://www.lyp82nlf.com:81/topline";
+    public static  final String WEB_SITE="http://172.16.34.253:8088/topline";
     public  static final String REQUEST_AD_URL=WEB_SITE+"/hone_ad_list_data.json";
     public  static final String REQUEST_NEW_URL=WEB_SITE+"/home_news_list_data.json";
     public  static final String REQUEST_PYTHON_URL=WEB_SITE+"/python_list_data.json";
