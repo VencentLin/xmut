@@ -23,6 +23,7 @@ import cn.lwx000.xmut.adapters.HomeAdapter;
 import cn.lwx000.xmut.beans.NewsBean;
 import cn.lwx000.xmut.utils.ConstantUtils;
 import cn.lwx000.xmut.utils.JsonParseUtils;
+import cn.lwx000.xmut.utils.NetUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -42,7 +43,8 @@ public class HomeFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what){
                 case NEWS_OK:
-                    List<NewsBean> newslist= JsonParseUtils.getNewsList((String)msg.obj);
+//                    List<NewsBean> newslist= JsonParseUtils.getNewsList((String)msg.obj);
+                    List<NewsBean> newslist= JsonParseUtils.getList(NewsBean.class,(String)msg.obj);
                     homeAdapter.setNewData(newslist);
                     break;
             }
@@ -87,32 +89,19 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void getNewsData() {
-
-        OkHttpClient client = new OkHttpClient();
-
-
-        Request request = new Request.Builder()
-                .url(ConstantUtils.REQUEST_NEW_URL)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
+        NetUtils.getDataAsyn(ConstantUtils.REQUEST_NEWS_URL, new NetUtils.MyCallBack() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e(TAG, "onFailure: ",e );
+            public void onFailure() {
+
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                ResponseBody body=response.body();
-
-                if (body!=null){
-                    String json=body.string();
-                    System.out.println(json);
+            public void onResponse(String json) {
                     Log.i(TAG,json);
                     Message message=Message.obtain();
-                    message.what=MyHandle.NEWS_OK;
+                    message.what= HomeFragment.MyHandle.NEWS_OK;
                     message.obj=json;
                     myHandle.sendMessage(message);
-                }
             }
         });
 

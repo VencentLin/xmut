@@ -2,19 +2,45 @@ package cn.lwx000.xmut.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import cn.lwx000.xmut.beans.NewsBean;
 
 public class JsonParseUtils {
-    private static Gson gson=new Gson();
-    public  static List<NewsBean> getNewsList(String json){
-        Type listType=new TypeToken<List<NewsBean>>(){}.getType();
+
+    public static <T> List<T>  getList(Class<T> tClass,String json){
+        Gson gson=new Gson();
+        Type listType=new MyParameterizedType(tClass);
         return gson.fromJson(json,listType);
     }
-    public  static List<NewsBean> getADList(String json){
-        Type listType=new TypeToken<List<NewsBean>>(){}.getType();
-        return gson.fromJson(json,listType);
+
+    private static class MyParameterizedType implements ParameterizedType{
+
+        Class raw;
+
+        public MyParameterizedType(Class raw) {
+            this.raw = raw;
+        }
+
+        @NonNull
+        @Override
+        public Type[] getActualTypeArguments() {
+            return new Type[]{raw};
+        }
+
+        @NonNull
+        @Override
+        public Type getRawType() {
+            return List.class;
+        }
+
+        @Override
+        public Type getOwnerType() {
+            return null;
+        }
     }
 }

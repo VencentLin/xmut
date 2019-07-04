@@ -9,6 +9,7 @@ import java.util.List;
 import cn.lwx000.xmut.R;
 import cn.lwx000.xmut.beans.NewsBean;
 import cn.lwx000.xmut.utils.ConstantUtils;
+import cn.lwx000.xmut.utils.ImageUtils;
 import cn.lwx000.xmut.viewHolders.NewsViewHolder;
 
 public class HomeAdapter extends BaseMultiItemQuickAdapter<NewsBean, NewsViewHolder> {
@@ -31,8 +32,11 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<NewsBean, NewsViewHol
                 helper.setText(R.id.textView,item.getNewsName());
                 helper.setText(R.id.textView2,item.getNewsTypeName());
                 ImageView imageView=helper.getView(R.id.imageView);
-                Glide.with(helper.itemView.getContext()).load(ConstantUtils.WEB_SITE+item.getImg1()).
-                        into(imageView);
+//              Glide.with(helper.itemView.getContext()).
+//              load(ConstantUtils.WEB_SITE+item.getImg1()).into(imageView);
+                ImageUtils.setImage(helper.itemView.getContext(),
+                        ConstantUtils.WEB_SITE+item.getImg1(),
+                        imageView);
 
                 break;
             case 2:
@@ -41,12 +45,15 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<NewsBean, NewsViewHol
                 ImageView imageView1=helper.getView(R.id.imageView);
                 ImageView imageView2=helper.getView(R.id.imageView2);
                 ImageView imageView3=helper.getView(R.id.imageView3);
-                Glide.with(helper.itemView.getContext())
-                        .load(ConstantUtils.WEB_SITE+item.getImg1()).into(imageView1);
-                Glide.with(helper.itemView.getContext())
-                        .load(ConstantUtils.WEB_SITE+item.getImg2()).into(imageView2);
-                Glide.with(helper.itemView.getContext())
-                        .load(ConstantUtils.WEB_SITE+item.getImg3()).into(imageView3);
+                ImageUtils.setImage(helper.itemView.getContext(),
+                        ConstantUtils.WEB_SITE+item.getImg1(),
+                        imageView1);
+                ImageUtils.setImage(helper.itemView.getContext(),
+                        ConstantUtils.WEB_SITE+item.getImg2(),
+                        imageView2);
+                ImageUtils.setImage(helper.itemView.getContext(),
+                        ConstantUtils.WEB_SITE+item.getImg3(),
+                        imageView3);
                 break;
         }
     }
