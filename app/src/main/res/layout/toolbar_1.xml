@@ -12,5 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="22sp"
-        android:text="标题"/>
+        android:text="标题"
+        android:maxLines="1"/>
 </androidx.appcompat.widget.Toolbar>

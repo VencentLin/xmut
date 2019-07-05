@@ -16,20 +16,19 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetUtils {
+
     public interface MyCallBack{
         void onFailure();
         void onResponse(String json);
-
     }
 
-    public static void getDataAsyn(String url,final MyCallBack myCallBack) {
+    public static void getDataAsyn(String url,final MyCallBack myCallBack){
         OkHttpClient client = new OkHttpClient();
-
-
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        client.newCall(request).enqueue(new Callback() {
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 myCallBack.onFailure();
@@ -37,15 +36,12 @@ public class NetUtils {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                ResponseBody body=response.body();
-
+                ResponseBody body = response.body();
                 if (body!=null){
-                    String json=body.string();
+                    String json = body.string();
                     myCallBack.onResponse(json);
-
                 }
             }
         });
-
     }
 }

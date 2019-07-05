@@ -1,14 +1,13 @@
 package cn.lwx000.xmut.utils;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import cn.lwx000.xmut.beans.NewsBean;
+
 
 public class JsonParseUtils {
 
@@ -22,7 +21,7 @@ public class JsonParseUtils {
 
         Class raw;
 
-        public MyParameterizedType(Class raw) {
+        MyParameterizedType(Class raw) {
             this.raw = raw;
         }
 
