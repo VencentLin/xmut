@@ -22,7 +22,7 @@ public class NewsDetailActivity extends HomeAsUpBaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newsdetail);
-        final TextView titleView = findViewById(R.id.title);
+        final TextView titleView = findViewById(R.id.tv_title);
         String url = getIntent().getStringExtra("url");
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
         mAgentWeb = AgentWeb.with(this)

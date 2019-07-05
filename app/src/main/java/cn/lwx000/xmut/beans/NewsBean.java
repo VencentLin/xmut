@@ -25,8 +25,6 @@ public class NewsBean implements MultiItemEntity {
     private String img2;
     private String img3;
     private String newsUrl;
-    private String picUrl;
-
     public int getId() {
         return id;
     }
@@ -89,14 +87,6 @@ public class NewsBean implements MultiItemEntity {
 
     public void setNewsUrl(String newsUrl) {
         this.newsUrl = newsUrl;
-    }
-
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
     }
 
     @Override

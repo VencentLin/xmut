@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -68,9 +70,16 @@ public class HomeFragment extends BaseFragment {
         RefreshLayout refreshLayout = view.findViewById(R.id.srl_home);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
                 getADData();
+                getNewsData();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
                 getNewsData();
             }
         });
@@ -79,6 +88,7 @@ public class HomeFragment extends BaseFragment {
         recyclerView.setAdapter(homeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         View headView = LayoutInflater.from(activity).inflate(R.layout.head_home,null);
+        homeAdapter.addHeaderView(headView);
         banner = headView.findViewById(R.id.banner);
         banner.setImageLoader(new ImageLoader() {
             @Override
@@ -91,11 +101,14 @@ public class HomeFragment extends BaseFragment {
                 }
             }
         });
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
+        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
         ArrayList<Integer> images = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
         for(int i = 0;i < 3;i++){
             images.add(R.drawable.pic_item_list_default);
+            titles.add("");
         }
+        banner.setBannerTitles(titles);
         banner.setImages(images);
         banner.start();
         View emptyView = LayoutInflater.from(activity).inflate(R.layout.empty_home,null);
@@ -139,14 +152,21 @@ public class HomeFragment extends BaseFragment {
             }
 
             @Override
-            public void onResponse(String json) {
+            public void onResponse(final String json) {
 //                    Log.i(TAG,json);
 //                    Message message=Message.obtain();
 //                    message.what= HomeFragment.MyHandle.NEWS_OK;
 //                    message.obj=json;
 //                    myHandle.sendMessage(message);
-                newsList_news = JsonParseUtils.getList(NewsBean.class,json);
-                homeAdapter.setNewData(newsList_news);
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        newsList_news = JsonParseUtils.getList(NewsBean.class,json);
+                        homeAdapter.setNewData(newsList_news);
+                    }
+                });
+
+
 
 
             }
@@ -171,9 +191,12 @@ public class HomeFragment extends BaseFragment {
                     public void run() {
                         newsList_AD = JsonParseUtils.getList(NewsBean.class,json);
                         List<String> images = new ArrayList<>();
+                        List<String> titles = new ArrayList<>();
                         for (NewsBean newsBean : newsList_AD){
                             images.add(ConstantUtils.WEB_SITE + newsBean.getImg1());
+                            titles.add(newsBean.getNewsName());
                         }
+                        banner.setBannerTitles(titles);
                         banner.setImages(images);
                         banner.setOnBannerListener(new OnBannerListener() {
                             @Override
