@@ -33,6 +33,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.NewsDetailActivity"/>
+        <activity android:name=".activities.PythonActivity"/>
+        <activity android:name=".activities.JavaLineChartActivity"/>
 
     </application>
 
