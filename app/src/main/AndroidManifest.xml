@@ -35,6 +35,11 @@
         <activity android:name=".activities.NewsDetailActivity"/>
         <activity android:name=".activities.PythonActivity"/>
         <activity android:name=".activities.JavaLineChartActivity"/>
+        <activity android:name=".activities.AndroidPieChartActivity"/>
+        <activity android:name=".activities.PHPBarChartActivity"/>
+        <activity android:name=".activities.VideoDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
     </application>
 
