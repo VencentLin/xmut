@@ -3,17 +3,21 @@ package cn.lwx000.xmut.fragments;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import androidx.annotation.Nullable;
+
 import cn.lwx000.xmut.R;
 import cn.lwx000.xmut.activities.LoginActivity;
+import cn.lwx000.xmut.activities.RegisterActivity;
+import cn.lwx000.xmut.activities.UserInfoActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 public class MineFragment extends BaseFragment {
+    private static final int REQUEST_CODE1=0x1001;
     private boolean isLogin;
-    private int REQUEST_CODE1;
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
@@ -24,17 +28,16 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         super.initView(view);
-        collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarLayout);
-        CircleImageView circleImageView = view.findViewById(R.id.circleImageView);
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isLogin){
-
-                }else{
-                    Intent intent =  new Intent(activity, LoginActivity.class);
-                    startActivityForResult(intent,REQUEST_CODE1);
-                }
+        collapsingToolbarLayout=view.findViewById(R.id.collapsingToolbarLayout1);
+        CircleImageView circleImageView=view.findViewById(R.id.circleImageView);
+        circleImageView.setOnClickListener(v -> {
+            if (isLogin){
+                //跳转到个人资料界面
+                Intent userInfo = new Intent(getActivity(), UserInfoActivity.class);
+                startActivity(userInfo);
+            }else {
+                Intent login=new Intent(getActivity(), LoginActivity.class);
+                startActivityForResult(login,REQUEST_CODE1);
             }
         });
     }
@@ -42,12 +45,15 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_CODE1)
-            if(data!=null){
-                boolean isLogin = data.getBooleanExtra("isLogin",false);
+        if (requestCode==REQUEST_CODE1){
+            if (data!=null){
+                Boolean isLogin=data.getBooleanExtra("isLogin",false);
                 MineFragment.this.isLogin=isLogin;
-                String userName = data.getStringExtra("userName");
-                collapsingToolbarLayout.setTitle(userName);
+                if (isLogin) {
+                    String userName=data.getStringExtra("userName");
+                    collapsingToolbarLayout.setTitle(userName);
+                }
             }
+        }
     }
 }

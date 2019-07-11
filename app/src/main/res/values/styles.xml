@@ -7,11 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="MyExpanded" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+    <style name="MyExpanded1" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">18sp</item>
     </style>
-    <style name="MyCollapsed" parent="TextAppearance.AppCompat.Title">
+    <style name="MyCollapsed1" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">18sp</item>
     </style>
